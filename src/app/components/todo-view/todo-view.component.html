@@ -1,13 +1,21 @@
-<h3>{{todo.title}}</h3>
+<h5>{{todo.title}}</h5>
 <div>
   <div>{{todo.description}}</div>
-  
-  <div>{{todo.dateToComplete}}</div>
-  {{todoService.getTodoChildren(todo.id).length}}
+
+  <div>Due Date: {{todo.dateToComplete}}</div>
 </div>
 <div *ngIf="todoService.getTodoChildren(todo.id).length != 0">
-  <h5>Children</h5>
-  <div>
-    <app-todo-view *ngFor="let todoChild of todoService.getTodoChildren(todo.id)" [todo]="todoChild"></app-todo-view>
+  <h5>Children: {{todoService.getTodoChildren(todo.id).length}}</h5>
+  <button class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed">{{isCollapsed ? '+' : '-'}}</button>
+  <div [ngbCollapse]="isCollapsed">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let todoChild of todoService.getTodoChildren(todo.id)">
+        <app-todo-view [todo]="todoChild"></app-todo-view>
+      </li>
+    </ul>
   </div>
 </div>
+
+<button class="btn" (click)="setTodoActive(todo)">Edit</button>
+<button class="btn" (click)="deleteTodo(todo)">Delete</button>
+<button class="btn" *ngIf="todoService.isParent(todo.id)" (click)="deleteTodoTree(todo)">Delete Tree</button>

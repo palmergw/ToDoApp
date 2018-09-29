@@ -4,6 +4,6 @@
 
 <input [(ngModel)]="todo.dateToComplete" placeholder="Date to complete by" type="date">
 
-<select [(ngModel)]="todo.parentId">
+<select class="btn btn-outline-primary" *ngIf="todoService.getTodos().length > 0" [(ngModel)]="todo.parentId">
     <option *ngFor="let todoParent of todoService.getTodos()" [ngValue]="todoParent.id">{{todoParent.title}}</option>
 </select>

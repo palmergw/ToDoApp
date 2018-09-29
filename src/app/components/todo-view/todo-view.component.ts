@@ -11,9 +11,30 @@ import { TodoService } from '../../services/todo.service';
 export class TodoViewComponent implements OnInit {
 
   @Input() todo: TodoItem;
+  public todoList: TodoItem[];
 
   constructor(public todoService: TodoService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.todoList = this.todoService.getTodos();
+  }
+
+  public setTodoActive(todo: TodoItem): void {
+    this.todoService.activeTodo = todo;
+    this.deleteTodo(todo);
+  }
+
+  public deleteTodo(todo: TodoItem): void {
+    const index = this.todoList.indexOf(todo);
+    this.todoList.splice(index, 1);
+  }
+
+  public deleteTodoTree(todo: TodoItem): void {
+    let children = this.todoService.getTodoChildren(todo.id);
+    children.forEach(element => {
+      this.deleteTodo(element);
+    });
+
+  }
 
 }
