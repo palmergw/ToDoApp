@@ -1,0 +1,9 @@
+<input [(ngModel)]="todo.title" placeholder="Title">
+
+<input [(ngModel)]="todo.description" placeholder="Description">
+
+<input [(ngModel)]="todo.dateToComplete" placeholder="Date to complete by" type="date">
+
+<select [(ngModel)]="todo.parentId">
+    <option *ngFor="let todoParent of todoService.getTodos()" [ngValue]="todoParent.id">{{todoParent.title}}</option>
+</select>

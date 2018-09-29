@@ -1,0 +1,19 @@
+<h2>To-Do List:</h2>
+count: {{todoService.getTodos().length}}
+<div>
+  <!-- <input [(ngModel)]="searchTerms" placeholder="Search"> -->
+</div>
+
+<div>
+  <ul>
+    <li *ngFor="let todo of todoService.getTodoOrphans()">
+      <!-- <h3 (click)="showDeets = false">+</h3> -->
+      <app-todo-view [todo]="todo"></app-todo-view>
+      <button (click)="setTodoActive(todo)">Edit</button>
+      <button (click)="deleteTodo(todo)">Delete</button>
+      <button *ngIf="todoService.isParent(todo.id)" (click)="deleteTodoTree(todo)">Delete Tree</button>
+    </li>
+  </ul>
+</div>
+
+<!-- <button (click)="refresh()">Refresh</button> -->

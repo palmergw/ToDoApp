@@ -1,0 +1,13 @@
+<h3>{{todo.title}}</h3>
+<div>
+  <div>{{todo.description}}</div>
+  
+  <div>{{todo.dateToComplete}}</div>
+  {{todoService.getTodoChildren(todo.id).length}}
+</div>
+<div *ngIf="todoService.getTodoChildren(todo.id).length != 0">
+  <h5>Children</h5>
+  <div>
+    <app-todo-view *ngFor="let todoChild of todoService.getTodoChildren(todo.id)" [todo]="todoChild"></app-todo-view>
+  </div>
+</div>
