@@ -19,8 +19,16 @@ export class TodoService {
   public add(todo: TodoItem) {
     console.log('Added item to todoList');
 
+    // fix recursive parenthood, or items will disappear from list
+    if (todo.parentId) {
+      let parentObject = this.todoList.find(item => item.id === todo.parentId);
+      if (parentObject.parentId = todo.id) {
+        parentObject.parentId = undefined;
+      }
+    }
+
     if (!todo.id) {
-      todo.id = (this.todoList[this.todoList.length - 1] || {id: 0}).id + 1;
+      todo.id = (this.todoList[this.todoList.length - 1] || { id: 0 }).id + 1;
       this.todoList.push(todo);
     } else {
       let listMatch = this.todoList.find((t) => t.id === todo.id);
