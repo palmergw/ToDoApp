@@ -12,11 +12,13 @@ export class TodoViewComponent implements OnInit {
 
   @Input() todo: TodoItem;
   public todoList: TodoItem[];
+  public dateWarningThreshold: number;
 
   constructor(public todoService: TodoService) { }
 
   ngOnInit() {
     this.todoList = this.todoService.getTodos();
+    this.dateWarningThreshold = 3;
   }
 
   public setTodoActive(todo: TodoItem): void {
@@ -34,7 +36,20 @@ export class TodoViewComponent implements OnInit {
     children.forEach(element => {
       this.deleteTodo(element);
     });
+  }
 
+  public getDateCriticality(dateOfItem: string): string {
+    let itemDate = new Date(dateOfItem);
+    let dateNow = new Date();
+    let threeDaysFromNow = new Date();
+    threeDaysFromNow.setDate(threeDaysFromNow.getDate() + this.dateWarningThreshold);
+    if (itemDate > threeDaysFromNow) {
+      return 'success';
+    } else if (itemDate > dateNow) {
+      return 'warning';
+    } else {
+      return 'danger';
+    }
   }
 
 }

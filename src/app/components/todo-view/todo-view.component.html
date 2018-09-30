@@ -2,7 +2,12 @@
 <div>
   <div>{{todo.description}}</div>
 
-  <div>Due Date: {{todo.dateToComplete}}</div>
+  <div *ngIf="todo.dateToComplete">
+    <ngb-alert [dismissible]="false" [type]="getDateCriticality(todo.dateToComplete)">
+      <strong>Due Date: </strong> {{todo.dateToComplete}}
+    </ngb-alert>
+    <div>Due Date: {{todo.dateToComplete}}</div>
+  </div>
 </div>
 <div *ngIf="todoService.getTodoChildren(todo.id).length != 0">
   <h5>Children: {{todoService.getTodoChildren(todo.id).length}}</h5>
