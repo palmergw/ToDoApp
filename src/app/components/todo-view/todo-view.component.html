@@ -8,6 +8,9 @@
     </ngb-alert>
     <div>Due Date: {{todo.dateToComplete}}</div>
   </div>
+  <div>
+    Validation: {{todoService.getHierarchyValidation(todo.id)}}
+  </div>
 </div>
 <div *ngIf="todoService.getTodoChildren(todo.id).length != 0">
   <h5>Children: {{todoService.getTodoChildren(todo.id).length}}</h5>
